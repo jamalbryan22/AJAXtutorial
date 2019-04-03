@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title> Fetch from PHP MYSQL</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        
+        <button id="button"> Get Name</button>
+        <br> <br>
+        <h1>Users</h1>
+        <div id="users"></div>
+        
+        <script>
+        document.getElementById('button').addEventListener('click',loadUsers);
+
+
+       function loadUsers(e){
+
+           e.preventDefault();
+           var xhr = new XMLHttpRequest();
+
+           xhr.open('GET', 'users.php', true);
+
+           xhr.onload = function(){
+               if(this.status == 200){
+                   var users = JSON.parse(this.responseText);
+                   var output = '';
+                   for(var i in users){
+                       output += '<ul>'+
+                        '<li>ID: '+users[i].id+'</li>'+
+                        '<li>ID: '+users[i].name+'</li>'+
+                        '</ul>';
+                   }
+                   document.getElementById('users').innerHTML = output;
+               }
+           }
+           xhr.send();
+       }
+       </script>
+    </body>
+</html>
